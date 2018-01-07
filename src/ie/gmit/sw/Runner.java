@@ -5,7 +5,7 @@ package ie.gmit.sw;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-// Declaration of runner class
+// Declaration of Runner class
 public class Runner extends Thread{
 	// Declaration of private variables for blocking queues
 	private BlockingQueue<Thread> inQ = new ArrayBlockingQueue<Thread>(6);
@@ -32,5 +32,5 @@ public class Runner extends Thread{
 				outQ.offer(t);
 			}// End of if
 		}// End of while
-	} // End of while
+	} // End of run
 }// End of runner class
