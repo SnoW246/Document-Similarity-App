@@ -10,20 +10,39 @@ import javax.servlet.http.Part;
 public class Reader {
 	// Declaration & initialisation of private variables
 	private List<Shingle> shingleList = new ArrayList<Shingle>();
+	private BufferedReader br;
 	private Part section;
 	private String docID;
 	private String line = null;
 	private String[] words = null;
 	private Shingle shingle;
+	private File textFile;
 	
-	public Reader(Part part, String docID) {
+	// Declaration of Reader constructor
+	public Reader(Part part, String ID) {
 		super();
 		this.section = part;
-		this.docID = docID;
-	}// End of Reader function
+		this.docID = ID;
+	}// End of Reader constructor
+	
+	// Declaration of Reader constructor of type 2
+	public Reader(File textFile, String ID){
+		super();
+		this.textFile = textFile;
+		this.docID = ID;
+	}// End of Reader constructor
 	
 	// Declaration of New Shingle function to to create a new shingle
 	public List newShingle() throws IOException{
+		if(section != null){
+			// reads in from our document
+			br = new BufferedReader(new InputStreamReader(section.getInputStream()));
+		}
+		else{
+			// reads in from our document
+			br = new BufferedReader(new FileReader(textFile));
+		}
+		
 		// Initialisation of Count variable to see if shingle size gets reached
 		int count = 0;
 		// Read in from the document

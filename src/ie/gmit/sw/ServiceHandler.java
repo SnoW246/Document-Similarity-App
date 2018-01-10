@@ -35,13 +35,13 @@ public class ServiceHandler extends HttpServlet {
 	private List<Shingle> shingleList = new ArrayList<Shingle>();
 	private ServiceJob sj;
 	private Document d;
-	private BlockingQueue<ServiceJob> inQ = new ArrayBlockingQueue<ServiceJob>(6);
-	private BlockingQueue<ServiceJob> outQ = new ArrayBlockingQueue<ServiceJob>(6);
-	
+
 	// Declaration of Service handler constructor
 	public ServiceHandler() {
 		super();
-		service = new Service(inQ, outQ);
+		QueueService.init();
+		//service = new Service(inQ, outQ);
+		service = new Service();
 		new Thread(service).start();
 	}// End of Service Handler
 
@@ -52,12 +52,10 @@ public class ServiceHandler extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext(); //The servlet context is the web application itself.
-		
 		//Reads the value from the <context-param> in web.xml. Any application scope variables 
 		//defined in the web.xml can be read in as follows:
 		environmentalVariable = ctx.getInitParameter("SOME_GLOBAL_OR_ENVIRONMENTAL_VARIABLE"); 
 	}
-
 
 	/* The doGet() method handles a HTTP GET request. Please note the following very carefully:
 	 *   1) The doGet() method is executed in a separate thread. If you instantiate any objects
@@ -137,10 +135,9 @@ public class ServiceHandler extends HttpServlet {
 		
 		//JavaScript to periodically poll the server for updates (this is ideal for an asynchronous operation)
 		out.print("<script>");
-		out.print("var wait=setTimeout(\"document.frmRequestDetails.submit();\", 10000);"); //Refresh every 10 seconds
+		out.print("var wait=setTimeout(\"document.frmRequestDetails.submit();\", 1000000);"); //Refresh every 10 seconds
 		out.print("</script>");
 		
-			
 		/* File Upload: The following few lines read the multipart/form-data from an instance of the
 		 * interface Part that is accessed by Part part = req.getPart("txtDocument"). We can read 
 		 * bytes or arrays of bytes by calling read() on the InputStream of the Part object. In this
@@ -164,14 +161,8 @@ public class ServiceHandler extends HttpServlet {
 		sj = new ServiceJob(d);
 		
 		// Try to add newly made Service Job to the blocking queue
-		try {
-			inQ.put(sj);
-		}// End of try
-		// Catch interruption errors
-		catch(InterruptedException e){
-			// Print error stack trace for easier debugging
-			e.printStackTrace();
-		}// End of catch
+		//inQ.put(sj);
+		QueueService.addToInQ(sj);
 		
 		out.print("</font>");	
 	}// End of doGet

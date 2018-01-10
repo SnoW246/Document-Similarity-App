@@ -17,9 +17,10 @@
   <!-- This is how you define global variables -->
   <!-- Might want to declare some of these -->
   <context-param>
-    <param-name>SOME_GLOBAL_OR_ENVIRONMENTAL_VARIABLE <!--DB_PATH--></param-name>
+    <param-name>DATABASE_PATH<!--DB_PATH--></param-name>
 	<!-- This is where db goes, put jaccard db here / -->
     <param-value>Some Value</param-value>
+    <!-- <param-value>/home/Adrian/Documents/Workspace/DocumentSimilarityApp/WebContent/WEB-INF/secure</param-value> -->
 	<!-- never put it in web context!!!/ -->
 	<!-- <param-value>/web/db/secure/db.yap</param-value>-->
   </context-param>

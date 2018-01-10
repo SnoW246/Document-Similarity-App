@@ -4,10 +4,11 @@ package ie.gmit.sw;
 //Library imports
 //import javax.servlet.http.Part;
 
+
 // Declaration of Service Job class
 public class ServiceJob {
 	// Declaration of private variables
-	private Document document;
+    private Document document; 
 	
 	// Declaration of Service Job constructor
 	public ServiceJob(Document document) {

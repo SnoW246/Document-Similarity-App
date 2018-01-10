@@ -13,14 +13,14 @@ public class Document {
 	private String documentName;
 	
 	// Declaration of Document Constructor
-	public Document(String docID, String name, List shingleList) {
+	public Document(String ID, String name, List list) {
 		super();
-		this.documentID = docID;
+		this.documentID = ID;
 		this.documentName = name;
-		this.shingleList = shingleList;
+		this.shingleList = list;
 	}// End of Document constructor
 	
-	// Getter fot Shingle List
+	// Getter for Shingle List
 	public List getShingleList() {
 		return shingleList;
 	}// End of getShingleList
@@ -36,8 +36,8 @@ public class Document {
 	}// End of getDocumentID
 	
 	// Setter for Document ID
-	public void setDocumentID(String documentID) {
-		this.documentID = documentID;
+	public void setDocumentID(String ID) {
+		this.documentID = ID;
 	}// End of setDocumentID
 	
 	// Getter for Document Name
